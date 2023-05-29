@@ -168,3 +168,64 @@ msleep %>%
               max(sleep_total) - min(sleep_total)) %>% 
   arrange(Average) %>% 
   View()
+
+# Create table
+
+table(msleep$vore)
+
+msleep %>% 
+  select(vore, order) %>% 
+  filter(order %in% c("Rodentia", "Primates")) %>% 
+  table()
+
+# Visualise
+
+plot(pressure)
+
+# Bar plots
+ggplot(data = starwars,
+       mapping = aes(x = gender))+
+  geom_bar()
+
+# Histograms
+starwars %>% 
+  drop_na(height) %>% 
+  ggplot(mapping = aes(x = height))+
+  geom_histogram()
+
+# Box plots
+starwars %>%
+  drop_na(height) %>% 
+  ggplot(mapping = aes(x = height))+
+  geom_boxplot(fill = "steelblue")+
+  theme_bw()+
+  labs(title = "Boxplot of height",
+       x = "Height of characters")
+
+# Density plots
+starwars %>% 
+  drop_na(height) %>% 
+  filter(sex %in% c("male", "female")) %>% 
+  ggplot(mapping = aes(x = height,
+                       color = sex,
+                       fill = sex))+
+  geom_density(alpha = 0.2)+
+  theme_bw()
+
+# Scatter plots
+starwars %>% 
+  filter(mass < 200) %>% 
+  ggplot(aes(height, mass, color = sex))+
+  geom_point(size = 5, alpha = 0.5)+
+  theme_bw()+
+  labs(title = "Height and mass by sex")
+
+# Smoothed model
+starwars %>% 
+  filter(mass < 200) %>% 
+  ggplot(aes(height, mass, color = sex))+
+  geom_point(size = 3, alpha = 0.8)+
+  geom_smooth()+
+  facet_wrap(~sex)+
+  theme_bw()+
+  labs(title = "Height and mass by sex")
