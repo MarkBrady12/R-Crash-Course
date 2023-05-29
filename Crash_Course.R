@@ -60,3 +60,47 @@ class(starwars$hair_color)
 starwars %>% 
   mutate(hair_color = as.character(hair_color)) %>% 
   glimpse()
+
+# Changing factor levels
+df <- starwars
+df$sex <- as.factor(df$sex)
+
+levels(df$sex)
+
+df <- df %>% 
+  mutate(sex = factor(sex,
+                      levels = c("male", "female", "hermaphroditic", "none"
+                                 )))
+
+# Filter rows
+starwars %>% 
+  select(mass, sex) %>% 
+  filter(mass < 55 &
+           sex == "male")
+
+# Recode data
+starwars %>% 
+  select(sex) %>% 
+  mutate(sex = recode(sex,
+                      "male" = "man",
+                      "female" = "woman"))
+
+# Dealing with missing data
+mean(starwars$height, na.rm = TRUE)
+
+starwars %>%
+  drop_na(hair_color)
+
+# Dealing with duplicates
+Names <- c("Peter", "John", "Andrew", "Peter")
+Age <- c(22, 33, 44, 22)
+
+friends <- data.frame(Names, Age)
+
+friends
+
+friends %>% 
+  distinct()
+
+distinct(friends)
+
