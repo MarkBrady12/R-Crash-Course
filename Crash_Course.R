@@ -104,3 +104,37 @@ friends %>%
 
 distinct(friends)
 
+# Manipulate
+starwars %>% 
+  mutate(height_m = height/100) %>% 
+  select(name, height, height_m)
+
+# Conditional changes
+starwars %>% 
+  mutate(height_m = height/100) %>% 
+  select(name, height, height_m) %>% 
+  mutate(tallness = 
+           if_else(height_m < 1,
+                   "short",
+                   "tall"))
+
+# Reshape data with Pivot wider
+install.packages("gapminder")
+library(gapminder)
+View(gapminder)
+
+data <- select(gapminder, country, year, lifeExp)
+
+# Reshape to make shorter
+wide_data <- data %>%
+  pivot_wider(names_from = year, values_from = lifeExp)
+
+View(wide_data)
+
+# Reshape data with Pivot longer
+long_data <- wide_data %>% 
+  pivot_longer(2:13, 
+               names_to = "year",
+               values_to = "lifeExp")
+
+View(long_data)
