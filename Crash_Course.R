@@ -138,3 +138,33 @@ long_data <- wide_data %>%
                values_to = "lifeExp")
 
 View(long_data)
+
+# Range / Spread
+min(msleep$awake)
+max(msleep$awake)
+range(msleep$awake)
+IQR(msleep$awake)
+
+# Centrality
+mean(msleep$awake)
+median(msleep$awake)
+
+# Variance
+var(msleep$awake)
+
+summary(msleep$awake)
+
+msleep %>% 
+  select(awake, sleep_total) %>% 
+  summary()
+
+msleep %>% 
+  drop_na(vore) %>% 
+  group_by(vore) %>% 
+  summarise(Lower = min(sleep_total),
+            Average = mean(sleep_total),
+            Upper = max(sleep_total),
+            Difference = 
+              max(sleep_total) - min(sleep_total)) %>% 
+  arrange(Average) %>% 
+  View()
